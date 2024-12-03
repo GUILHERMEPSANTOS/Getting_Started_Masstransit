@@ -14,7 +14,8 @@ public class Booking
     public Guid GuestId { get; private set; }
     public BookingStatus Status { get; private set; }
 
-    private Booking(Guid id,
+    private Booking(
+        Guid id,
         DateTime checkIn,
         DateTime checkOut,
         int numberOfAdults,

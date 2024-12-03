@@ -46,13 +46,25 @@ public class Accomodation
             0,
             0,
             Guid.NewGuid()
+        );    
+       
+        var thirdBooking = Booking.Create(DateTime.UtcNow.AddDays(-2),
+            DateTime.UtcNow.AddDays(4),
+            1,
+            0,
+            0,
+            0,
+            Guid.NewGuid()
         );
 
         //Act
-        accomodation.AddBooking(firstBooking);
-        accomodation.AddBooking(secondBooking);
+        var bookingAttempt1 = accomodation.AddBooking(firstBooking);
+        var bookingAttempt2 = accomodation.AddBooking(secondBooking);
+        var bookingAttempt3 = accomodation.AddBooking(thirdBooking);
 
         //Assert
-        Assert.DoesNotContain(accomodation.Bookings, booking => booking.Id == secondBooking.Id);
+        Assert.True(bookingAttempt1);
+        Assert.False(bookingAttempt2);
+        Assert.False(bookingAttempt3);
     }
 }

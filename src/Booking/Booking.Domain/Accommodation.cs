@@ -4,31 +4,36 @@ public class Accommodation
 {
     public Guid Id { get; private set; }
     public Guid HostId { get; private set; }
-    private readonly List<Booking> _bookings;
+    private readonly List<Booking> _bookings = [];
     public IReadOnlyCollection<Booking> Bookings => _bookings.AsReadOnly();
 
-    private Accommodation(Guid id, Guid hostId, List<Booking> bookings)
+    private Accommodation(Guid id, Guid hostId)
     {
         Id = id;
         HostId = hostId;
-        _bookings = bookings;
     }
 
     public static Accommodation Create(Guid hostId)
     {
-        return new Accommodation(Guid.NewGuid(), hostId, new List<Booking>());
+        return new Accommodation(Guid.NewGuid(), hostId);
     }
 
-    public bool IsAvailable(DateTime checkIn, DateTime checkOut)
+    private bool IsAvailable(DateTime checkIn, DateTime checkOut)
     {
-        return true; //!_bookings.Any(booking => booking.CheckIn   && booking.CheckOut <= checkOut);
+        if (!_bookings.Any()) return true;
+        
+        return !_bookings.Any(booking => checkIn < booking.CheckOut && checkOut > booking.CheckIn);
     }
 
-    public void AddBooking(Booking booking)
+    public bool AddBooking(Booking booking)
     {
         if (IsAvailable(booking.CheckIn, booking.CheckOut))
         {
-            _bookings.Add(booking); 
+            _bookings.Add(booking);
+
+            return true;
         }
+        
+        return false;
     }
 }
