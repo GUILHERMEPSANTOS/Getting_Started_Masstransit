@@ -26,7 +26,7 @@ public class BookAccommodationCommandHandler(IAccommodationRepository _accommoda
 
       var bookingAttemptResult =  accommodation.AddBooking(bookingAttempt);
       
-      if(bookingAttemptResult is false) throw new Exception("A booking already exists for this period.");
+      if(!bookingAttemptResult) throw new Exception("A booking already exists for this period.");
       
       _accommodationRepository.AddBooking(bookingAttempt);
     }
