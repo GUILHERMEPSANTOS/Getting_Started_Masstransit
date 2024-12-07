@@ -34,9 +34,9 @@ public class BookAccommodationCommandHandlerTests
             .Verify(e => e.Handle(It.IsAny<BookAccommodationCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
     
-    [Fact(DisplayName = "should throws exception when adding invalid booking")]
+    [Fact(DisplayName = "Should throw an exception when adding a booking to a nonexistent accommodation")]
     [Trait("Category", "BookAccommodation")]
-    public void AddNewBooking_InvalidBooking_ShouldThrowsException()
+    public void AddNewBooking_NoexistentAccommodation_ShouldThrowsException()
     {
         //Arrange
         var accommodationRepositoryMock = new Mock<IAccommodationRepository>();
