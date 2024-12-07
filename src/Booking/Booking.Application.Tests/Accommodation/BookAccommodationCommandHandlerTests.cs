@@ -1,4 +1,5 @@
 using Booking.Application.Accommodation.BookAccommodation;
+using Booking.Domain;
 using MediatR;
 using Moq;
 
@@ -31,5 +32,35 @@ public class BookAccommodationCommandHandlerTests
         //Assert
         bookAccommodationCommandHandler
             .Verify(e => e.Handle(It.IsAny<BookAccommodationCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+    
+    [Fact(DisplayName = "should throws exception when adding invalid booking")]
+    [Trait("Category", "BookAccommodation")]
+    public void AddNewBooking_InvalidBooking_ShouldThrowsException()
+    {
+        //Arrange
+        var accommodationRepositoryMock = new Mock<IAccommodationRepository>();
+        accommodationRepositoryMock
+            .Setup(repository => repository.GetAccommodationById(It.IsAny<Guid>()))
+            .ReturnsAsync((Domain.Accommodation)null);
+        
+        var bookAccommodationCommandHandler = new BookAccommodationCommandHandler(accommodationRepositoryMock.Object);
+        
+        var bookAccommodationCommand = new BookAccommodationCommand
+        {
+            HostId = Guid.NewGuid(),
+            AccommodationId = Guid.NewGuid(),
+            CheckIn = DateTime.Now,
+            CheckOut = DateTime.Now.AddHours(1),
+            GuestId = Guid.NewGuid(),
+            NumberOfAdults = 2,
+            NumberOfChildren = 3,
+            NumberOfInfants = 2,
+            NumberOfPets = 2,
+        };
+        
+        //Act && Assert
+        Assert.ThrowsAsync<Exception>(
+            async () => await bookAccommodationCommandHandler.Handle(bookAccommodationCommand, default));
     }
 }
