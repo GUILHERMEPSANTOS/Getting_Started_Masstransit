@@ -14,7 +14,8 @@ public class Accomodation
             0,
             0,
             0,
-            new Guid()
+            new Guid(),
+            accomodation.Id
         );
 
         //Act
@@ -23,7 +24,7 @@ public class Accomodation
         //Assert
         Assert.True(accomodation.Bookings.Any());
     }
-    
+
     [Trait("Category", "Accomodation")]
     [Fact(DisplayName = "Failed to add a new reservation because one already exists in the same period")]
     public void AddBooking_FailureAddNewBooking_BookingAlreadyExists()
@@ -36,25 +37,28 @@ public class Accomodation
             0,
             0,
             0,
-            Guid.NewGuid()
-        ); 
-        
+            Guid.NewGuid(),
+            accomodation.Id
+        );
+
         var secondBooking = Booking.Create(DateTime.UtcNow,
             DateTime.UtcNow.AddDays(2),
             1,
             0,
             0,
             0,
-            Guid.NewGuid()
-        );    
-       
+            Guid.NewGuid(),
+            accomodation.Id
+        );
+
         var thirdBooking = Booking.Create(DateTime.UtcNow.AddDays(-2),
             DateTime.UtcNow.AddDays(4),
             1,
             0,
             0,
             0,
-            Guid.NewGuid()
+            Guid.NewGuid(),
+            accomodation.Id
         );
 
         //Act

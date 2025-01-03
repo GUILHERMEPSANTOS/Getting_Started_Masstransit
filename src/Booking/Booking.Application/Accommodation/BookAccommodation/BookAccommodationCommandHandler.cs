@@ -10,10 +10,10 @@ public class BookAccommodationCommandHandler(IAccommodationRepository _accommoda
     {
         var accommodation = await _accommodationRepository.GetAccommodationById(request.AccommodationId);
 
-        if(accommodation is null) throw new Exception("Accommodation dosen't exist");  
-       
-        if(accommodation.HostId != request.HostId) throw new Exception("Accommodation does not belong to the host");  
-        
+        if (accommodation is null) throw new Exception("Accommodation dosen't exist");
+
+        if (accommodation.HostId != request.HostId) throw new Exception("Accommodation does not belong to the host");
+
         var bookingAttempt = Booking.Domain.Booking.Create(
             request.CheckIn,
             request.CheckOut,
@@ -21,13 +21,14 @@ public class BookAccommodationCommandHandler(IAccommodationRepository _accommoda
             request.NumberOfChildren,
             request.NumberOfInfants,
             request.NumberOfPets,
-            request.GuestId
+            request.GuestId,
+            request.AccommodationId
         );
 
-      var bookingAttemptResult =  accommodation.AddBooking(bookingAttempt);
-      
-      if(!bookingAttemptResult) throw new Exception("A booking already exists for this period.");
-      
-      _accommodationRepository.AddBooking(bookingAttempt);
+        var bookingAttemptResult = accommodation.AddBooking(bookingAttempt);
+
+        if (!bookingAttemptResult) throw new Exception("A booking already exists for this period.");
+
+        await _accommodationRepository.AddBooking(accommodation.Id, bookingAttempt);
     }
 }

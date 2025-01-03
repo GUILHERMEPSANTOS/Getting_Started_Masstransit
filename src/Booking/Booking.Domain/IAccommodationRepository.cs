@@ -2,6 +2,6 @@ namespace Booking.Domain;
 
 public interface IAccommodationRepository
 {
-    void AddBooking(Booking booking);
+    Task AddBooking(Guid accommodationId, Domain.Booking booking);
     Task<Accommodation?> GetAccommodationById(Guid id);
 }

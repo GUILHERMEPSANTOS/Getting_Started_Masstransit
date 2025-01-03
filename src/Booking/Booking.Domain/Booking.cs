@@ -13,6 +13,7 @@ public class Booking
     public bool CheckOutCompleted { get; private set; }
     public Guid GuestId { get; private set; }
     public BookingStatus Status { get; private set; }
+    public Guid AccommodationId { get; private set; }
 
     private Booking(
         Guid id,
@@ -25,7 +26,8 @@ public class Booking
         Guid guestId,
         BookingStatus bookingStatus,
         bool checkInCompleted,
-        bool checkOutCompleted)
+        bool checkOutCompleted,
+        Guid accommodationId)
     {
         Id = id;
         CheckIn = checkIn;
@@ -38,6 +40,7 @@ public class Booking
         Status = bookingStatus;
         CheckInCompleted = checkInCompleted;
         CheckOutCompleted = checkOutCompleted;
+        AccommodationId = accommodationId;
     }
 
     public static Booking Create(
@@ -47,7 +50,8 @@ public class Booking
         int numberOfChildren,
         int numberOfInfants,
         int numberOfPets,
-        Guid guestId
+        Guid guestId,
+        Guid accommodationId
     )
     {
         return new Booking(
@@ -61,7 +65,8 @@ public class Booking
             guestId,
             BookingStatus.Pending,
             false,
-            false
+            false,
+            accommodationId
         );
     }
 

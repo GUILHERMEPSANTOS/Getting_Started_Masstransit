@@ -90,7 +90,7 @@ public class BookAccommodationCommandHandlerTests
     
     [Fact(DisplayName = "Should throw an exception when adding a reservation when the given accommodation already has a reservation")]
     [Trait("Category", "BookAccommodation")]
-    public void AddNewBooking_AccommodationAlreadyHasAccommodation_ShouldThrowsException()
+    public void AddNewBooking_AccommodationAlreadyHasReservation_ShouldThrowsException()
     {
         //Arrange
         var accommodationId = Guid.NewGuid();
@@ -102,7 +102,8 @@ public class BookAccommodationCommandHandlerTests
             0,
             0,
             0,
-            new Guid()
+            new Guid(),
+            accommodationId
         );
         accommodation.AddBooking(booking);
        
