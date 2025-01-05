@@ -69,7 +69,17 @@ public class BookAccommodationCommandHandlerTests
     public void AddNewBooking_DifferentHostAccommodation_ShouldThrowsException()
     {
         //Arrange
-        var accommodation = Domain.Accommodation.Create(Guid.NewGuid());
+        var address = new Address(
+            "Rua Exemplo",
+            "123",
+            "Apto 45",
+            "Centro",
+            "São Paulo",
+            "SP",
+            "01000-000",
+            "Brasil"
+        );
+        var accommodation = Domain.Accommodation.Create(Guid.NewGuid(), "Accomodation", address);
         var accommodationRepositoryMock = new Mock<IAccommodationRepository>();
        
         accommodationRepositoryMock
@@ -94,7 +104,17 @@ public class BookAccommodationCommandHandlerTests
     {
         //Arrange
         var accommodationId = Guid.NewGuid();
-        var accommodation = Domain.Accommodation.Create(accommodationId);
+        var address = new Address(
+            "Rua Exemplo",
+            "123",
+            "Apto 45",
+            "Centro",
+            "São Paulo",
+            "SP",
+            "01000-000",
+            "Brasil"
+        );
+        var accommodation = Domain.Accommodation.Create(Guid.NewGuid(), "Accomodation", address);
         var booking = Domain.Booking.Create(
             DateTime.UtcNow,
             DateTime.UtcNow.AddDays(2),

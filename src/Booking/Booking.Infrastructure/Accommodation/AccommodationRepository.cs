@@ -1,5 +1,6 @@
 using Booking.Domain;
 using Booking.Infrastructure.Database;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -34,5 +35,10 @@ public class AccommodationRepository : IAccommodationRepository
             await _accommodationsCollection.FindAsync(accommodation => accommodation.Id == id);
 
         return accommodationResult.SingleOrDefault();
+    }
+
+    public async Task Create(Domain.Accommodation accommodation)
+    {
+        await _accommodationsCollection.InsertOneAsync(accommodation);
     }
 }

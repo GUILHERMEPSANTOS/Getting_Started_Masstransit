@@ -1,18 +1,16 @@
 using Booking.Api.Contracts;
+using Booking.Api.Extensions;
 using Booking.Application.Accommodation.BookAccommodation;
 using Booking.Infrastructure;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMediatR(configuration =>
-{
-    configuration.RegisterServicesFromAssemblies(Booking.Application.AssemblyReference.Assembly);
-});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration["ConnectionStrings:Mongo"]!);
-
+    
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -24,7 +22,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-app.MapPost("/accommodation/booking", async (BookAccommodationRequest request, IMediator mediator) =>
+app.MapPost("accommodation/booking", async (BookAccommodationRequest request, IMediator mediator) =>
     {
         var bookAccommoationCommand = new BookAccommodationCommand()
         {
