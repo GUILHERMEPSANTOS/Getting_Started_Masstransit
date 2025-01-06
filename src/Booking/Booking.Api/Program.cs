@@ -1,6 +1,7 @@
 using Booking.Api.Contracts;
 using Booking.Api.Extensions;
 using Booking.Application.Accommodation.BookAccommodation;
+using Booking.Application.Accommodation.CreateAccommodation;
 using Booking.Infrastructure;
 using MediatR;
 
@@ -10,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration["ConnectionStrings:Mongo"]!);
-    
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -20,7 +21,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 
 app.MapPost("accommodation/booking", async (BookAccommodationRequest request, IMediator mediator) =>
     {
@@ -40,6 +40,27 @@ app.MapPost("accommodation/booking", async (BookAccommodationRequest request, IM
         await mediator.Send(bookAccommoationCommand);
     })
     .WithName("BookAccommodation")
+    .WithOpenApi();
+
+
+app.MapPost("accommodation", async (CreateAccommodationRequest request, IMediator mediator) =>
+    {
+        var createAccommoationCommand = new CreateAccommodationCommand
+        {
+            HostId = request.HostId,
+            ZipCode = request.ZipCode,
+            City = request.City, Complement = request.Complement,
+            Country = request.Country,
+            Name = request.Name,    
+            Neighborhood = request.Neighborhood,
+            Number = request.Number,
+            State = request.State,
+            Street = request.Street,
+        };
+
+        await mediator.Send(createAccommoationCommand);
+    })
+    .WithName("CreateAccommodation")
     .WithOpenApi();
 
 app.Run();

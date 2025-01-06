@@ -1,0 +1,27 @@
+meta {
+  name: CreateAccommodation
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{api_base_url}}/accommodation
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "hostId": "e13b54e6-b9a6-4b59-8f21-80f9985a5394",
+      "name": "Cozy Mountain Cabin",
+      "street": "123 Maple Street",
+      "number": "45A",
+      "complement": "Near the big oak tree",
+      "neighborhood": "Hillside",
+      "city": "Aspen",
+      "state": "CO",
+      "zipCode": "81611",
+      "country": "USA"
+  }
+  
+}

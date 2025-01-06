@@ -9,6 +9,8 @@ public static class InfrastructureModule
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection serviceCollection, string connectionString)
     {
+        AccommodationConfiguration.Configure();
+        
         var mongoSettings = MongoClientSettings.FromConnectionString(connectionString);
 
         serviceCollection.AddSingleton<IMongoClient>(new MongoClient(mongoSettings));

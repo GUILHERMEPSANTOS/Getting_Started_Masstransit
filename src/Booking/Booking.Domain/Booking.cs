@@ -1,8 +1,13 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace Booking.Domain;
 
 public class Booking
 {
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; private set; }
+
     public DateTime CheckIn { get; private set; }
     public DateTime CheckOut { get; private set; }
     public int NumberOfAdults { get; private set; }
@@ -11,8 +16,13 @@ public class Booking
     public int NumberOfPets { get; private set; }
     public bool CheckInCompleted { get; private set; }
     public bool CheckOutCompleted { get; private set; }
+
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid GuestId { get; private set; }
+
     public BookingStatus Status { get; private set; }
+
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid AccommodationId { get; private set; }
 
     private Booking(

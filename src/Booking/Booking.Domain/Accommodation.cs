@@ -1,14 +1,20 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace Booking.Domain;
 
 public class Accommodation
 {
+    [BsonId, BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; private set; }
+
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid HostId { get; private set; }
+
     public string Name { get; set; }
     public Address Address { get; set; }
 
-    private readonly List<Booking> _bookings = [];
-    public IReadOnlyCollection<Booking> Bookings => _bookings.AsReadOnly();
+    public List<Booking> Bookings = [];
 
     private Accommodation(Guid id, Guid hostId, string name, Address address)
     {
@@ -25,16 +31,16 @@ public class Accommodation
 
     private bool IsAvailable(DateTime checkIn, DateTime checkOut)
     {
-        if (!_bookings.Any()) return true;
+        if (Bookings.Count == 0) return true;
 
-        return !_bookings.Any(booking => checkIn < booking.CheckOut && checkOut > booking.CheckIn);
+        return !Bookings.Any(booking => checkIn < booking.CheckOut && checkOut > booking.CheckIn);
     }
 
     public bool AddBooking(Booking booking)
     {
         if (IsAvailable(booking.CheckIn, booking.CheckOut))
         {
-            _bookings.Add(booking);
+            Bookings.Add(booking);
 
             return true;
         }
