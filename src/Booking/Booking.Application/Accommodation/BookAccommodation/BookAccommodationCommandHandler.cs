@@ -14,7 +14,7 @@ public class BookAccommodationCommandHandler(IAccommodationRepository _accommoda
 
         if (accommodation.HostId != request.HostId) throw new Exception("Accommodation does not belong to the host");
 
-        var bookingAttempt = Booking.Domain.Booking.Create(
+        var bookingAttempt = Domain.Booking.Create(
             request.CheckIn,
             request.CheckOut,
             request.NumberOfAdults,

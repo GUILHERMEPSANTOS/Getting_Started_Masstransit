@@ -33,9 +33,10 @@ public class Accommodation
     {
         if (Bookings.Count == 0) return true;
 
-        return !Bookings.Any(booking => checkIn < booking.CheckOut && checkOut > booking.CheckIn);
+        return !Bookings.Any(booking => (checkIn <= booking.CheckOut && checkOut >= booking.CheckIn));
     }
 
+        
     public bool AddBooking(Booking booking)
     {
         if (IsAvailable(booking.CheckIn, booking.CheckOut))

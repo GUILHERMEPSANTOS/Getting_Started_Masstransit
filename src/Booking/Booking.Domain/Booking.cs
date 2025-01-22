@@ -8,6 +8,7 @@ public class Booking
     [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; private set; }
 
+
     public DateTime CheckIn { get; private set; }
     public DateTime CheckOut { get; private set; }
     public int NumberOfAdults { get; private set; }
@@ -64,6 +65,10 @@ public class Booking
         Guid accommodationId
     )
     {
+        if (checkIn == checkOut) throw new Exception("Check-in can not be equal check-out date");
+
+        if (checkIn > checkOut) throw new Exception("Check-in Date can not be earlier than check-out date");
+        
         return new Booking(
             Guid.NewGuid(),
             checkIn,

@@ -1,3 +1,5 @@
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace Booking.Domain.Tests;
 
 public class Accommodation
@@ -90,5 +92,22 @@ public class Accommodation
         Assert.True(bookingAttempt1);
         Assert.False(bookingAttempt2);
         Assert.False(bookingAttempt3);
+    }
+
+    [Trait("Category", "Accomodation")]
+    [Fact(DisplayName = "Check-in date cannot be earlier than check-out date")]
+    public void AddNewBooking_FailureAddNewBooking_CheckInDateCannotBeEarlierThanCheckOutDate()
+    {
+
+        // Arrange & Act & Assert
+         Assert.Throws<Exception>(() => Booking.Create(DateTime.UtcNow,
+            DateTime.UtcNow.AddDays(-2),
+            1,
+            0,
+            0,
+            0,
+            Guid.NewGuid(),
+            Guid.NewGuid()
+        ));
     }
 }

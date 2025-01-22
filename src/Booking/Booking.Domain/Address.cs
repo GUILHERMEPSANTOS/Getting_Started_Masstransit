@@ -2,6 +2,11 @@ namespace Booking.Domain;
 
 public class Address
 {
+    public Address()
+    {
+        
+    }
+
     public Address(
         string street, 
         string number,
