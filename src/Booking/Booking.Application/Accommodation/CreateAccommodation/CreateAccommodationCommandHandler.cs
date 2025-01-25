@@ -1,10 +1,11 @@
+using Booking.Common.Application.EventBus;
 using Booking.Domain;
+using Booking.Events.IntegrationEvents;
 using MediatR;
-using Microsoft.VisualBasic;
 
 namespace Booking.Application.Accommodation.CreateAccommodation;
 
-public class CreateAccommodationCommandHandler(IAccommodationRepository _accommodationRepository)
+public class CreateAccommodationCommandHandler(IAccommodationRepository _accommodationRepository, IEventBus eventBus)
     : IRequestHandler<CreateAccommodationCommand>
 {
     public async Task Handle(CreateAccommodationCommand request, CancellationToken cancellationToken)
@@ -23,5 +24,13 @@ public class CreateAccommodationCommandHandler(IAccommodationRepository _accommo
         var accommodation = Domain.Accommodation.Create(request.HostId, request.Name, address);
 
         await _accommodationRepository.Create(accommodation);
+
+        await eventBus.PublishAsync(new AccommodationCreatedIntegrationEvent(
+            Guid.NewGuid(),
+            DateTime.UtcNow,
+            accommodation.Name, 
+            accommodation.Id,
+            accommodation.HostId
+        ), cancellationToken);
     }
 }

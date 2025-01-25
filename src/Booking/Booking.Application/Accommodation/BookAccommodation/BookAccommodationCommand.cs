@@ -13,5 +13,4 @@ public class BookAccommodationCommand : IRequest
     public int NumberOfInfants { get;  set; }
     public int NumberOfPets { get;  set; }
     public Guid GuestId { get;  set; }
-    
 }

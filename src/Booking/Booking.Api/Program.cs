@@ -3,6 +3,7 @@ using Booking.Api.Extensions;
 using Booking.Application.Accommodation.BookAccommodation;
 using Booking.Application.Accommodation.CreateAccommodation;
 using Booking.Infrastructure;
+using Booking.Common.Infrastructure;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration["ConnectionStrings:Mongo"]!);
+builder.Services.AddCommonInfrastructure(null);
 
 var app = builder.Build();
 
