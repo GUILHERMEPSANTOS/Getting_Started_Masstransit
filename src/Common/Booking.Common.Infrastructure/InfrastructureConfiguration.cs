@@ -7,12 +7,15 @@ namespace Booking.Common.Infrastructure
 {
     public static class InfrastructureConfiguration
     {
-        public static IServiceCollection AddCommonInfrastructure(this IServiceCollection services, Action<IRegistrationConfigurator> moduleConfigureConsumers)
+        public static IServiceCollection AddCommonInfrastructure(this IServiceCollection services,
+            Action<IRegistrationConfigurator> moduleConfigureConsumers)
         {
             services.TryAddSingleton<IEventBus, EventBus.EventBus>();
 
             services.AddMassTransit(x =>
             {
+                moduleConfigureConsumers(x);
+                
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host("localhost", "/", h =>
@@ -25,7 +28,7 @@ namespace Booking.Common.Infrastructure
                 });
             });
 
-           return services;
+            return services;
         }
     }
 }

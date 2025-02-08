@@ -3,11 +3,16 @@
 namespace Booking.Events.IntegrationEvents
 {
     public class AccommodationCreatedIntegrationEvent(
-        Guid id, 
+        Guid id,
         DateTime occurredAtUtc,
-        string Name,
-        Guid AccommodationId,
-        Guid HostId) : IntegrationEvent(id, occurredAtUtc)
+        string name,
+        Guid accommodationId,
+        Guid hostId) : IntegrationEvent(id, occurredAtUtc)
     {
+        public Guid Id { get; } = id;
+        public DateTime OccurredAtUtc { get; } = occurredAtUtc;
+        public string Name { get; } = name;
+        public Guid AccommodationId { get; } = accommodationId;
+        public Guid HostId { get; } = hostId;
     }
 }

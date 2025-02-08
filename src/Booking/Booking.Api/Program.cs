@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration["ConnectionStrings:Mongo"]!);
-builder.Services.AddCommonInfrastructure(null);
+builder.Services.AddCommonInfrastructure(config => {});
 
 var app = builder.Build();
 

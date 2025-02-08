@@ -1,4 +1,5 @@
 using Booking.Application.Accommodation.CreateAccommodation;
+using Booking.Common.Application.EventBus;
 using Booking.Domain;
 using Moq;
 
@@ -11,6 +12,7 @@ public class CreateAccommodationCommandHandlerTests
     public void CreateAccommodation_NewValidAccommodation_SuccessfullyCreateNewAccommodation()
     {
         //Arrange
+        var eventBus = new Mock<IEventBus>();
         var accommodationRepository = new Mock<IAccommodationRepository>();
         var command = new CreateAccommodationCommand
         {
@@ -25,8 +27,8 @@ public class CreateAccommodationCommandHandlerTests
             ZipCode = "ZipCode",
             Name = "Name",
         };
-        var commandHandler = new CreateAccommodationCommandHandler(accommodationRepository.Object);
-        
+        var commandHandler = new CreateAccommodationCommandHandler(accommodationRepository.Object, eventBus.Object);
+
         //Act 
         commandHandler.Handle(command, default);
 

@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.Common.Domain", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booking.Events.IntegrationEvents", "src\Booking\Booking.Events.IntegrationEvents\Booking.Events.IntegrationEvents.csproj", "{6A91C4E6-24C6-4A8A-891C-049CBD74A522}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Worker", "src\Catalog.Worker\Catalog.Worker.csproj", "{55DD7134-84CD-495D-A3D7-C1439E963DB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{6A91C4E6-24C6-4A8A-891C-049CBD74A522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A91C4E6-24C6-4A8A-891C-049CBD74A522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A91C4E6-24C6-4A8A-891C-049CBD74A522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DD7134-84CD-495D-A3D7-C1439E963DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DD7134-84CD-495D-A3D7-C1439E963DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DD7134-84CD-495D-A3D7-C1439E963DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DD7134-84CD-495D-A3D7-C1439E963DB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{7E3A0AE0-D989-4932-ABC1-74301886CEBA} = {3EF75C9B-427E-442D-8078-1122D7EA6D3A}
 		{8E281FFE-55A9-4055-910B-3E98DA47D28C} = {3EF75C9B-427E-442D-8078-1122D7EA6D3A}
 		{6A91C4E6-24C6-4A8A-891C-049CBD74A522} = {4603B8FB-80F5-4BDE-B15A-CF662DC892E6}
+		{55DD7134-84CD-495D-A3D7-C1439E963DB5} = {B7D8A558-7C7C-4714-9E39-736BC4539E86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {390B545B-B40D-4A69-95A4-BB8E68FE7FD0}
