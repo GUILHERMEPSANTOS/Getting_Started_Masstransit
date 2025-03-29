@@ -3,6 +3,8 @@ using Booking.Infrastructure.Database;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using System.Net.Http.Headers;
+using System.Numerics;
 
 namespace Booking.Infrastructure.Accommodation;
 
@@ -41,4 +43,13 @@ public class AccommodationRepository : IAccommodationRepository
     {
         await _accommodationsCollection.InsertOneAsync(accommodation);
     }
+
+    public async Task<int> GetNumberAccommodationsByCity(string city)
+    {
+        var getByCity = Builders<Domain.Accommodation>.Filter.Eq(x => x.Address.City, city);
+
+        var accommodations = await _accommodationsCollection.FindAsync(getByCity);
+
+        return accommodations.ToList().Count;            
+    }   
 }

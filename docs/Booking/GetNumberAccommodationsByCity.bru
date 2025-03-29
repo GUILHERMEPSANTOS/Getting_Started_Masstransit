@@ -1,0 +1,17 @@
+meta {
+  name: GetNumberAccommodationsByCity
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{api_base_url}}/accommodation/city
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "City": "Seara"
+  }
+}

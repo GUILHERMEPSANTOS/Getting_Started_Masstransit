@@ -5,6 +5,7 @@ using Booking.Application.Accommodation.CreateAccommodation;
 using Booking.Infrastructure;
 using Booking.Common.Infrastructure;
 using MediatR;
+using Booking.Application.Accommodation.GetNumberAccommodationsByCity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration["ConnectionStrings:Mongo"]!);
-builder.Services.AddCommonInfrastructure(config => {});
+builder.Services.AddCommonInfrastructure(config => { }, builder.Configuration);
 
 var app = builder.Build();
 
@@ -51,9 +52,10 @@ app.MapPost("accommodation", async (CreateAccommodationRequest request, IMediato
         {
             HostId = request.HostId,
             ZipCode = request.ZipCode,
-            City = request.City, Complement = request.Complement,
+            City = request.City,
+            Complement = request.Complement,
             Country = request.Country,
-            Name = request.Name,    
+            Name = request.Name,
             Neighborhood = request.Neighborhood,
             Number = request.Number,
             State = request.State,
@@ -64,5 +66,17 @@ app.MapPost("accommodation", async (CreateAccommodationRequest request, IMediato
     })
     .WithName("CreateAccommodation")
     .WithOpenApi();
+
+
+app.MapPost("accommodation/city", async (GetNumbeerAccommodationsByCityResquest request, IMediator mediator) =>
+{
+    var createAccommoationCommand = new GetNumberAccommodationsByCityQuery
+    {
+      City = request.City
+    };
+
+    return Results.Ok(await mediator.Send(createAccommoationCommand));
+}).WithName("GetNumberAccommodationsByCityQuery")
+  .WithOpenApi();
 
 app.Run();
